@@ -2,10 +2,16 @@ body {
   min-height: 50vh;
   font-family: helvetica, Arial, sans-serif;
   font-size: 2vmin;
-  background-color: #808080;
+  background-color: #555;
   color: white;
   margin: 3vmin 4vmin 2vmin 4vmin;
 }
+
+*:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
 a {
   color: #ffffff;
   text-decoration: none;
@@ -13,8 +19,14 @@ a {
 
 h1 {
   padding-left: 60px;
-  height: 52px;
   line-height: 52px;
+  margin-top: 3vmin;
+}
+
+#logo {
+  float:left;
+  position: absolute;
+  top: 3vmin;
 }
 
 #github {
@@ -52,7 +64,7 @@ textarea {
 }
 
 #pastebin {
-  background-color: #808080;
+  background-color: #555;
 }
 
 button, input {
@@ -60,12 +72,12 @@ button, input {
     margin-top: 15px;
     padding:5px 15px;
     color: white;
-    border:2 solid;
+    border:2px solid;
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     border-color: white;
-    background-color: #606060;
+    background-color: #333;
 }
 
 #copy {
@@ -84,7 +96,7 @@ button, input {
 /* Fade out begin */
 @keyframes fadeOut {
   0% {color: white;}
-  100% {color: #808080;}
+  100% {color: #555;}
 }
 
 .fadeout {
