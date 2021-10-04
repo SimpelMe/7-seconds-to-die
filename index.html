@@ -16,7 +16,7 @@
 	<title>7 sec to die</title>
 </head>
 
-<body onload="checkCookie()" onKeyDown="keys(event,'d')" onKeyUp="keys(event,'u')">
+<body onKeyDown="keys(event,'d')" onKeyUp="keys(event,'u')">
 
 	<header>
 		<nav>
@@ -38,16 +38,18 @@
 			<p>With this tool you can transfer text from one device to another.</p>
 			<p>On device one you put with "paste" your clipboard into a pastebin. With "copy" on device two you fill that clipboard with this bin. But hurry up! 7 seconds after pasting the bin will be killed.</p>
 		</details>
-		<button type="button" name="paste" id="paste" onclick="pasteToBin()" title="push to paste clipboard to vanishing bin">Paste [1]</button>
-		<button type="button" name="copy" id="copy" onclick="copyFromBin()" title="push to copy vanishing bin to clipboard">Copy [2]</button>
-		<button type="button" name="reset" id="reset" onclick="deleteCookies()" title="push to reset the login credentials">Reset</button>
+		<form action="javascript:void(0);">
+			<button type="button" name="paste" id="paste" onclick="pasteToBin()" title="push to paste clipboard to vanishing bin">Paste [1]</button>
+			<button type="button" name="copy" id="copy" onclick="copyFromBin()" title="push to copy vanishing bin to clipboard">Copy [2]</button>
+			<button type="button" name="reset" id="reset" onclick="deleteUserCredentials()" title="push to reset the login credentials">Reset</button>
+		</form>
 		<br>
 		<br>
 		<form>
 			<label for="pastebin">Content of vanishing pastebin:</label>
 			<textarea id="pastebin" class="fadeout" name="pastebin" readonly tabindex="-1"></textarea>
 		</form>
-		<button type="button" name="reset" id="resetiPhone" onclick="deleteCookies()">Reset</button>
+		<button type="button" name="reset" id="resetiPhone" onclick="deleteUserCredentials()">Reset</button>
 	</main>
 
 	<script src="aes.js"></script>

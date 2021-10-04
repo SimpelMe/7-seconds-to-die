@@ -26,7 +26,6 @@ function setUsername() {
   user = userprompt;
   document.getElementById("reset").innerText = "Reset Login '" + user + "'";
   document.getElementById("resetiPhone").innerText = "Reset Login '" + user + "'";
-  setCookie("Benutzer", user, 90);
   setPassword();
 }
 
@@ -40,52 +39,9 @@ function setPassword() {
     }
   }
   password = pw;
-  setCookie("Passwort", password, 90);
 }
 
-function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  var expires = "expires=" + d.toGMTString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
-function checkCookie() {
-  var usertemp = getCookie("Benutzer");
-  if (usertemp != "") {
-    user = usertemp;
-    document.getElementById("reset").innerText = "Reset Login '" + user + "'";
-    document.getElementById("resetiPhone").innerText = "Reset Login '" + user + "'";
-  } else {
-    setUsername()
-  }
-  var pwtemp = getCookie("Passwort");
-  if (pwtemp != "") {
-    password = pwtemp;
-  } else {
-    setPassword()
-  }
-}
-
-function deleteCookies() {
-  document.cookie = "Benutzer=; expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
-  document.cookie = "Passwort=; expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+function deleteUserCredentials() {
   user = "";
   password = "";
   setUsername();
@@ -99,6 +55,9 @@ function keys(e, r) // r fuer Richtung der Taste:     'd' down    'u' up
 
 function copyFromBin() {
 	deleteOlderFiles();
+  if (user == "" || user == null || password == "" || password == null) {
+    setUsername();
+  }
   var rawFile = new XMLHttpRequest();
   var userlowercase = user.toLowerCase();
   var url = urlHost + userlowercase + ".txt?" + new Date().getTime();
@@ -161,6 +120,9 @@ function copyFromBin() {
 
 function pasteToBin() {
 	deleteOlderFiles();
+  if (user == "" || user == null || password == "" || password == null) {
+    setUsername();
+  }
   navigator.clipboard.readText()
     .then(text => {
       var pastebin = document.getElementById("pastebin")
@@ -229,5 +191,5 @@ function deleteOlderFiles() {
 	http.send("");
 }
 
-checkCookie();
+setUsername();
 deleteOlderFiles();
