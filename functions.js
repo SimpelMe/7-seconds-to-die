@@ -1,6 +1,7 @@
 var urlHost = window.location.origin + window.location.pathname; // with trailing slash
 var user = "";
 var password = "";
+var allText;
 
 function encrypt(message) {
   var encrypted = CryptoJS.AES.encrypt(message, password);
@@ -49,11 +50,13 @@ function deleteUserCredentials() {
 
 function keys(e, r) // r fuer Richtung der Taste:     'd' down    'u' up
 {
-  if (e.key == "1" && r == 'u') pasteToBin();
-  if (e.key == "2" && r == 'u') copyFromBin();
+  if (e.key == "1" && r == 'd') pasteToBin();
+  if (e.key == "2" && r == 'd') pullFromBin();
+  if (e.key == "3" && r == 'd') putToClipboard();
 }
 
-function copyFromBin() {
+function pullFromBin() {
+
 	deleteOlderFiles();
   if (user == "" || user == null || password == "" || password == null) {
     setUsername();
@@ -62,7 +65,7 @@ function copyFromBin() {
   var userlowercase = user.toLowerCase();
   var url = urlHost + userlowercase + ".txt?" + new Date().getTime();
   rawFile.open("GET", url, true);
-  var allText
+
   rawFile.onreadystatechange = function() {
     if (rawFile.readyState === 4) {
       if (rawFile.status === 200 || rawFile.status == 0) {
@@ -71,35 +74,13 @@ function copyFromBin() {
         allText = decrypt(allText);
         var pastebin = document.getElementById("pastebin")
         pastebin.innerText = allText;
-        // copy to clipboard
-        if (iOS()) {
-          // save current contentEditable/readOnly status
-          var editable = pastebin.contentEditable;
-          var readOnly = pastebin.readOnly;
-          // convert to editable with readonly to stop iOS keyboard opening
-          pastebin.contentEditable = true;
-          pastebin.readOnly = true;
-          // create a selectable range
-          var range = document.createRange();
-          range.selectNodeContents(pastebin);
-          // select the range
-          var selection = window.getSelection();
-          selection.removeAllRanges();
-          selection.addRange(range);
-          pastebin.setSelectionRange(0, 999999);
-          // restore contentEditable/readOnly to original state
-          pastebin.contentEditable = editable;
-          pastebin.readOnly = readOnly;
-        } else {
-          pastebin.focus();
-          pastebin.select();
-          pastebin.setSelectionRange(0, 99999); /* For mobile devices */
-        }
-        // navigator.clipboard.writeText(allText) // this new API is not working with iOS the way I want
-        document.execCommand("copy");
 
-        // fill in again to deselect
-        pastebin.innerText = allText;
+        // try to click the button which will put it to clipboard
+        // for security reasons in safari (OSX, iOS, iPadOS) some have directly
+        // trigger the function with mouse or touch
+        // clipboard.writeText can't be nested in safari
+        document.querySelector('#copy').click();
+
         // restart fading animation of pastebin
         // removing the class
         pastebin.classList.remove("fadeout");
@@ -116,6 +97,21 @@ function copyFromBin() {
     }
   }
   rawFile.send(null);
+}
+
+function putToClipboard () {
+  var pastebin = document.querySelector('#pastebin');
+  if (allText == undefined) {
+    pastebin.innerText = "NO DATA FOUND";
+  } else {
+    navigator.clipboard.writeText(allText).then(function() {
+      /* clipboard successfully set */
+      pastebin.innerText = "COPIED";
+    }, function() {
+      /* clipboard write failed */
+      console.error("writing to clipboard FAILED");
+    });
+  }
 }
 
 function pasteToBin() {

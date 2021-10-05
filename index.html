@@ -36,12 +36,13 @@
 		<details>
 			<summary>How to die</summary>
 			<p>With this tool you can transfer text from one device to another.</p>
-			<p>On device one you put with "paste" your clipboard into a pastebin. With "copy" on device two you fill that clipboard with this bin. But hurry up! 7 seconds after pasting the bin will be killed.</p>
+			<p>On device one you put with "paste" your clipboard into a pastebin. With "pull + copy" on device two you fill that clipboard with this bin. But hurry up! 7 seconds after pasting the bin will be killed.</p>
 		</details>
 		<form action="javascript:void(0);">
-			<button type="button" name="paste" id="paste" onclick="pasteToBin()" title="push to paste clipboard to vanishing bin">Paste [1]</button>
-			<button type="button" name="copy" id="copy" onclick="copyFromBin()" title="push to copy vanishing bin to clipboard">Copy [2]</button>
-			<button type="button" name="reset" id="reset" onclick="deleteUserCredentials()" title="push to reset the login credentials">Reset</button>
+			<button type="button" name="paste" id="paste" onclick="pasteToBin()" title="push button to send clipboard content to server">Paste [1]</button>
+			<button type="button" name="pull" id="pull" onclick="pullFromBin()" title="push button to pull content from server">Pull [2]</button>
+			<button type="button" name="copy" id="copy" onclick="putToClipboard()" title="push button to put content to clipboard">Copy [3]</button>
+			<button type="button" name="reset" id="reset" onclick="deleteUserCredentials()" title="push button to reset the login credentials">Reset</button>
 		</form>
 		<br>
 		<br>
