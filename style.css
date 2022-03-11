@@ -7,6 +7,33 @@ body {
   margin: 3vmin 4vmin 2vmin 4vmin;
 }
 
+/* iPad portait */
+@media (max-width: 768px) {
+	body {
+		font-size: 3vmin;
+	}
+  button, input {
+    margin-top: 2vmin;
+  }
+}
+
+/* iPhone landscape only */
+@media (max-width: 568px) {
+  body {
+    font-size: 4vmin;
+  }
+}
+
+/* iPhone portait only */
+@media (max-width: 320px) {
+	body {
+		font-size: 4vmin;
+	}
+  textarea {
+    height: 35vh;
+  }
+}
+
 *:focus {
     outline: 2px solid white;
     outline-offset: 2px;
@@ -110,30 +137,3 @@ button, input {
   animation-fill-mode: forwards;
 }
 /* Fade out end */
-
-/* iPhone portait and landscape */
-@media screen and (max-width: 768px) {
-	body {
-		font-size: 2.9vmin;
-	}
-  button, input {
-    margin-top: 2vmin;
-  }
-}
-
-/* iPhone portait only */
-@media screen and (max-width: 320px) {
-	body {
-		font-size: 5vmin;
-	}
-  textarea {
-    height: 35vh;
-  }
-  #reset {
-    display: none;
-  }
-  #resetiPhone {
-    display: block;
-    margin-top: 12px;
-  }
-}
