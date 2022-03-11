@@ -9,9 +9,10 @@ body {
 
 /* iPad portait */
 @media (max-width: 768px) {
-	body {
-		font-size: 3vmin;
-	}
+  body {
+    font-size: 3vmin;
+  }
+
   button, input {
     margin-top: 2vmin;
   }
@@ -26,17 +27,18 @@ body {
 
 /* iPhone portait only */
 @media (max-width: 320px) {
-	body {
-		font-size: 4vmin;
-	}
+  body {
+    font-size: 4vmin;
+  }
+
   textarea {
     height: 35vh;
   }
 }
 
 *:focus {
-    outline: 2px solid white;
-    outline-offset: 2px;
+  outline: 2px solid white;
+  outline-offset: 2px;
 }
 
 a {
@@ -79,7 +81,7 @@ textarea {
   color: white;
   font: inherit;
   font-size: inherit;
-	resize: none;
+  resize: none;
   outline: 1px solid white;
   padding: 12px;
   display: block;
@@ -87,8 +89,8 @@ textarea {
   height: 55vh;
   margin-top: 0.8em;
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 #pastebin {
@@ -96,16 +98,16 @@ textarea {
 }
 
 button, input {
-    font-size: 1em;
-    margin-top: 15px;
-    padding:5px 10px;
-    color: white;
-    border:2px solid;
-    cursor:pointer;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    border-color: white;
-    background-color: #333;
+  font-size: 1em;
+  margin-top: 15px;
+  padding: 5px 10px;
+  color: white;
+  border: 2px solid;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border-color: white;
+  background-color: #333;
 }
 
 #pull {
@@ -127,14 +129,19 @@ button, input {
 
 /* Fade out begin */
 @keyframes fadeOut {
-  0% {color: white;}
-  100% {color: #555;}
+  0% {
+    color: white;
+  }
+
+  100% {
+    color: #555;
+  }
 }
 
 .fadeout {
   animation-name: fadeOut;
   animation-duration: 7s;
-  animation-timing-function:linear;
+  animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
 /* Fade out end */
@@ -145,6 +152,7 @@ button, input {
   #reset {
     display: none;
   }
+
   #resetiPhone {
     display: block;
     margin-top: 12px;
