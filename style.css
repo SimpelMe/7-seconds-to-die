@@ -137,3 +137,15 @@ button, input {
   animation-fill-mode: forwards;
 }
 /* Fade out end */
+
+/* iPhone portait+  */
+/* move reset button to bottom */
+@media (max-width: 568px) {
+  #reset {
+    display: none;
+  }
+  #resetiPhone {
+    display: block;
+    margin-top: 12px;
+  }
+}
