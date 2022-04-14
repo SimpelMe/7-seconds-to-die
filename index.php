@@ -2,30 +2,14 @@
 <html lang="en-US">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="robots" content="noindex,nofollow">
-	<meta name="referrer" content="no-referrer">
-	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-	<meta http-equiv="Pragma" content="no-cache">
-	<meta http-equiv="Expires" content="0">
-	<meta name="author" content="Simpel">
-	<meta name="copyright" content="MIT 2021 Simpel">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes user-scalable=no">
-	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<?php include dirname($_SERVER['DOCUMENT_ROOT']) . "/simpel.cc/php/head.php"; ?>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<title>7 sec to die</title>
 </head>
 
 <body onKeyDown="keys(event,'d')" onKeyUp="keys(event,'u')">
 
 	<header>
-		<nav>
-			<a id="logo" class="cursordefault" href="/"><img src="../Simpel.png" alt="simpel icon" height="48" width="48" title="simpel.cc" aria-label="go to simpel dot c c"></a>
-			<h1>7 seconds to die</h1>
-			<a id="github" href="https://github.com/SimpelMe/7-seconds-to-die" target="_blank" rel="noopener noreferrer" title="watch source code" aria-label="go to source code at github dot com">
-				<img id="github-cat" src="../github.svg" alt="github logo">
-			</a>
-		</nav>
+		<?php include dirname($_SERVER['DOCUMENT_ROOT']) . "/simpel.cc/php/header.php"; ?>
 	</header>
 
 	<main>
