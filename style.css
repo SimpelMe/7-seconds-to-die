@@ -110,21 +110,9 @@ button, input {
   background-color: #333;
 }
 
-#pull {
-  margin-left: 2.5vmin;
-}
-
-#copy {
-  margin-left: 2.5vmin;
-}
-
-#reset {
-  position: absolute;
-  right: 4vmin;
-}
-
-#resetiPhone {
-  display: none;
+form#buttons {
+  display: inline-flex;
+  column-gap: 4vmin;
 }
 
 /* Fade out begin */
@@ -145,16 +133,3 @@ button, input {
   animation-fill-mode: forwards;
 }
 /* Fade out end */
-
-/* iPhone portait+  */
-/* move reset button to bottom */
-@media (max-width: 568px) {
-  #reset {
-    display: none;
-  }
-
-  #resetiPhone {
-    display: block;
-    margin-top: 12px;
-  }
-}

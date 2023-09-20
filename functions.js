@@ -14,38 +14,71 @@ function decrypt(message) {
   return string;
 }
 
-function setUsername() {
-  var userprompt = ""
+function setPhrase() {
+  makePhrase();
+  var userprompt = "";
   while (userprompt === "") {
-    userprompt = prompt("Bitte Namen eingeben.\n\nEs sind nur die Zeichen a-Z, 0-9 und _ erlaubt.\n", "");
-    userprompt = userprompt.replace(/[^\w\d]/gi, ''); // nur a-Z, 0-9 und _
+    userprompt = prompt("Enter a phrase.\nValid characters are: a-Z, 0-9, - and _.\n\nProposal:\n", phrase);
+    userprompt = userprompt.replace(/[^\-\w\d]/gi, ''); // nur a-Z, 0-9 und _
     userprompt = userprompt.trim(); // deletes trailing and leading whitespaces
     if (userprompt == null) { // kein user eingegeben
       userprompt = "";
     }
   }
-  user = userprompt;
-  document.getElementById("reset").innerText = "Reset Login '" + user + "'";
-  document.getElementById("resetiPhone").innerText = "Reset Login '" + user + "'";
-  setPassword();
+  phrase = userprompt;
+  document.getElementById("reset").innerText = "Reset phrase '" + phrase + "'";
+  setCookie("Phrase", phrase, 7); // 7 days is maximum set by safari and brave
+  var middle = Math.floor(phrase.length / 2);
+  user = phrase.substr(0, middle + 1);
+  password = phrase.substr(middle);
 }
 
-function setPassword() {
-  var pw = ""
-  while (pw === "") {
-    pw = prompt("Bitte Passwort eingeben.\n\nEs sind nur die Zeichen a-Z, 0-9 und _ erlaubt.\n", "");
-    pw = pw.replace(/[^\w\d]/gi, ''); // nur a-Z, 0-9 und _
-    if (pw == null) {
-      pw = "";
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
     }
   }
-  password = pw;
+  return "";
+}
+
+function checkCookie() {
+  var tempPhrase = getCookie("Phrase");
+  if (tempPhrase != "") {
+    phrase = tempPhrase;
+    document.getElementById("reset").innerText = "Reset phrase '" + phrase + "'";
+    setCookie("Phrase", phrase, 7); // set again after each reload as 7 days is maximum set by safari and brave
+  } else {
+    setPhrase()
+  }
+  var middle = Math.floor(phrase.length / 2);
+  user = phrase.substr(0, middle + 1);
+  password = phrase.substr(middle);
+}
+
+function deleteCookies() {
+  document.cookie = "Phrase=; expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
 }
 
 function deleteUserCredentials() {
   user = "";
   password = "";
-  setUsername();
+  deleteCookies();
+  setPhrase();
 }
 
 function keys(e, r) // r fuer Richtung der Taste:     'd' down    'u' up
@@ -59,11 +92,11 @@ function pullFromBin() {
 
 	deleteOlderFiles();
   if (user == "" || user == null || password == "" || password == null) {
-    setUsername();
+    setPhrase();
   }
   var rawFile = new XMLHttpRequest();
-  var userlowercase = user.toLowerCase();
-  var url = urlHost + userlowercase + ".txt?" + new Date().getTime();
+  // var userlowercase = user.toLowerCase();
+  var url = urlHost + user + ".txt?" + new Date().getTime();
   rawFile.open("GET", url, true);
 
   rawFile.onreadystatechange = function() {
@@ -117,7 +150,7 @@ function putToClipboard () {
 function pasteToBin() {
 	deleteOlderFiles();
   if (user == "" || user == null || password == "" || password == null) {
-    setUsername();
+    setPhrase();
   }
   navigator.clipboard.readText()
     .then(text => {
@@ -147,30 +180,17 @@ function pasteToBin() {
           //console.log("ready-Response: \n" + http.responseText);
         }
       }
-      var userlowercase = user.toLowerCase();
+      // var userlowercase = user.toLowerCase();
       //console.log("before encrypt: " + params);
       params = encrypt(params);
       //console.log("after encrypt: " + params);
       params = encodeURIComponent(params);
       //console.log("after URI: " + params);
-      http.send("user=" + userlowercase + "&text=" + params);
+      http.send("user=" + user + "&text=" + params);
     })
     .catch(err => {
       console.error('Failed to read clipboard content: ', err);
     });
-}
-
-function iOS() {
-  const iOS_1to12 = /iPad|iPhone|iPod/.test(navigator.platform);
-  const iOS13_iPad = (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  const iOS1to12quirk = function() {
-    var audio = new Audio(); // temporary Audio object
-    audio.volume = 0.5; // has no effect on iOS <= 12
-    return audio.volume === 1;
-  };
-  const isIOS = !window.MSStream && (iOS_1to12 || iOS13_iPad || iOS1to12quirk());
-  // console.log("Is iOS: " + isIOS);
-  return isIOS
 }
 
 function deleteOlderFiles() {
@@ -187,5 +207,5 @@ function deleteOlderFiles() {
 	http.send("");
 }
 
-setUsername();
+checkCookie();
 deleteOlderFiles();

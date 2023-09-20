@@ -22,11 +22,11 @@
 			<p>With this tool you can transfer text from one device to another.</p>
 			<p>On device one you put with "paste" your clipboard into a pastebin. With "pull + copy" on device two you fill that clipboard with this bin. But hurry up! 7 seconds after pasting the bin will be killed.</p>
 		</details>
-		<form action="javascript:void(0);">
+		<form id="buttons" action="javascript:void(0);">
 			<button type="button" name="paste" id="paste" onclick="pasteToBin()" title="push button to send clipboard content to server">Paste [1]</button>
 			<button type="button" name="pull" id="pull" onclick="pullFromBin()" title="push button to pull content from server">Pull [2]</button>
 			<button type="button" name="copy" id="copy" onclick="putToClipboard()" title="push button to put content to clipboard">Copy [3]</button>
-			<button type="button" name="reset" id="reset" onclick="deleteUserCredentials()" title="push button to reset the login credentials">Reset</button>
+			<button type="button" name="reset" id="reset" onclick="deleteUserCredentials()" title="push button to reset the phrase">Reset</button>
 		</form>
 		<br>
 		<br>
@@ -34,10 +34,10 @@
 			<label for="pastebin">Content of vanishing pastebin:</label>
 			<textarea id="pastebin" class="fadeout" name="pastebin" readonly tabindex="-1"></textarea>
 		</form>
-		<button type="button" name="reset" id="resetiPhone" onclick="deleteUserCredentials()">Reset</button>
 	</main>
 
 	<script src="aes.js"></script>
+	<script src="phrase.js"></script>
 	<script src="functions.js"></script>
 </body>
 
