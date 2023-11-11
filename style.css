@@ -168,6 +168,11 @@ textarea {
   box-sizing: border-box;
 }
 
+textarea:focus {
+  outline: 1px solid white;
+  outline-offset: 0;
+}
+
 #pastebin {
   background-color: #555;
 }
