@@ -52,6 +52,19 @@ function setPhrase() {
   password = phrase;
 }
 
+function queryToPhrase(secret) {
+  phrase = secret;
+  phrase = smallHash(phrase);
+  setCookie("phrase", phrase, 7); // 7 days is maximum set by safari and brave
+  // username should be the phrase but every second character omitted
+  // This way you won't see the password in the gui on "reset" button
+  user = phrase.split('').filter((c, i) => (i + 1) % 2 !== 0).join('');
+  document.getElementById("reset").innerText = "Reset user '" + user + "'";
+  password = phrase;
+  // remove the secret in the url/address bar - so nobody can see this
+  history.replaceState("", "", window.location.href.replace(new RegExp("\\?secret=[^&#38;\\n]+$|secret=[^&#38;#]+&#38;"), ""));
+}
+
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -86,6 +99,16 @@ function checkCookie() {
   user = phrase.split('').filter((c, i) => (i + 1) % 2 !== 0).join('');
   document.getElementById("reset").innerText = "Reset user '" + user + "'";
   password = phrase;
+}
+
+function checkQuery() {
+  let params = new URLSearchParams(document.location.search);
+  let secret = params.get("secret");
+  if (secret) {
+    queryToPhrase(secret);
+  } else {
+    checkCookie();
+  }
 }
 
 function deleteCookies() {
@@ -225,5 +248,5 @@ function deleteOlderFiles() {
 	http.send("");
 }
 
-checkCookie();
+checkQuery();
 deleteOlderFiles();
