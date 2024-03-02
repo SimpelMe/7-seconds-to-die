@@ -140,14 +140,41 @@ function pullFromBin() {
   var url = urlHost + user + ".txt?" + new Date().getTime();
   rawFile.open("GET", url, true);
 
+  rawFile.onload = function() {
+    if (rawFile.status === 404) {
+      // then color pull button red for 2 seconds fading
+      var pullButton = document.querySelector('#pull');
+      pullButton.classList.add("redbutton");
+
+      // and remove after 2 seconds
+      setTimeout(function() {
+        var pullButton = document.querySelector('#pull');
+        pullButton.classList.remove("redbutton");
+      }, 2000);
+    }
+  };
+
   rawFile.onreadystatechange = function() {
     if (rawFile.readyState === 4) {
       if (rawFile.status === 200 || rawFile.status == 0) {
+        // then color pull button green for 2 seconds fading
+        var pullButton = document.querySelector('#pull');
+        pullButton.classList.add("greenbutton");
+        // and remove after 2 seconds
+        setTimeout(function() {
+          var pullButton = document.querySelector('#pull');
+          pullButton.classList.remove("greenbutton");
+        }, 2000);
+
         allText = rawFile.responseText;
         allText = decodeURIComponent(allText);
         allText = decrypt(allText);
         var pastebin = document.getElementById("pastebin")
         pastebin.innerText = allText;
+
+        // enable copy button
+        var copyButton = document.querySelector('#copy');
+        copyButton.removeAttribute("disabled");
 
         // try to click the button which will put it to clipboard
         // for security reasons in safari (OSX, iOS, iPadOS) some have directly
@@ -167,6 +194,9 @@ function pullFromBin() {
         setTimeout(function() {
           pastebin.innerText = "";
           allText = "";
+          // disable copy button
+          var copyButton = document.querySelector('#copy');
+          copyButton.setAttribute("disabled", "disabled");
         }, 7000);
       }
     }
@@ -181,7 +211,16 @@ function putToClipboard () {
   } else {
     navigator.clipboard.writeText(allText).then(function() {
       /* clipboard successfully set */
-      pastebin.innerText = "COPIED";
+      // pastebin.innerText = "COPIED";
+
+      // then color copy button green for 2 seconds fading
+      var copyButton = document.querySelector('#copy');
+      copyButton.classList.add("greenbutton");
+      // and remove after 2 seconds
+      setTimeout(function() {
+        var copyButton = document.querySelector('#copy');
+        copyButton.classList.remove("greenbutton");
+      }, 2000);
     }, function() {
       /* clipboard write failed */
       console.error("writing to clipboard FAILED");

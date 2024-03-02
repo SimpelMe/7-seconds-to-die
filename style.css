@@ -105,6 +105,15 @@ button, input {
   background-color: #333;
 }
 
+button:disabled, input:disabled, textarea:disabled,
+div.disabled, p.disabled, label.disabled,
+#input.disabled, #output.disabled,
+label:has(> input:disabled) {
+  color: #AAAAAA;
+  background-color: inherit;
+  cursor: default;
+}
+
 form#buttons {
   display: flex;
   column-gap: 1em;
@@ -156,3 +165,37 @@ textarea:focus {
   animation-fill-mode: forwards;
 }
 /* Fade out end */
+
+@keyframes greenButton {
+  0% {
+    background-color: #080;
+  }
+
+  100% {
+    background-color: #333;
+  }
+}
+
+.greenbutton {
+  animation-name: greenButton;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes redButton {
+  0% {
+    background-color: #c00;
+  }
+
+  100% {
+    background-color: #333;
+  }
+}
+
+.redbutton {
+  animation-name: redButton;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}

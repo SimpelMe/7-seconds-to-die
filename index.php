@@ -25,7 +25,7 @@
 		<form id="buttons" action="javascript:void(0);">
 			<button type="button" name="paste" id="paste" onclick="pasteToBin()" title="push button to send clipboard content to server">Paste [1]</button>
 			<button type="button" name="pull" id="pull" onclick="pullFromBin()" title="push button to pull content from server">Pull [2]</button>
-			<button type="button" name="copy" id="copy" onclick="putToClipboard()" title="push button to put content to clipboard">Copy [3]</button>
+			<button type="button" name="copy" id="copy" onclick="putToClipboard()" title="push button to put content to clipboard" disabled>Copy [3]</button>
 			<button type="button" name="reset" id="reset" onclick="deleteUserCredentials()" title="push button to reset the phrase">Reset</button>
 		</form>
 		<form id="pasteform">
