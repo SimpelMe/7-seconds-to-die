@@ -166,6 +166,7 @@ function pullFromBin() {
         // remove content after 7 seconds
         setTimeout(function() {
           pastebin.innerText = "";
+          allText = "";
         }, 7000);
       }
     }
