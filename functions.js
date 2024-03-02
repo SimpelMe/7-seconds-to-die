@@ -175,7 +175,7 @@ function pullFromBin() {
 
 function putToClipboard () {
   var pastebin = document.querySelector('#pastebin');
-  if (allText == undefined) {
+  if (allText == undefined || allText == "") {
     pastebin.innerText = "NO DATA FOUND";
   } else {
     navigator.clipboard.writeText(allText).then(function() {

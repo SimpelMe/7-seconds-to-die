@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en-US">
+<html lang="en">
 
 <head>
 	<?php include dirname($_SERVER['DOCUMENT_ROOT']) . "/simpel.cc/php/head.php"; ?>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="style.min.css">
 </head>
 
 <body onKeyDown="keys(event,'d')" onKeyUp="keys(event,'u')">
@@ -28,17 +28,15 @@
 			<button type="button" name="copy" id="copy" onclick="putToClipboard()" title="push button to put content to clipboard">Copy [3]</button>
 			<button type="button" name="reset" id="reset" onclick="deleteUserCredentials()" title="push button to reset the phrase">Reset</button>
 		</form>
-		<br>
-		<br>
-		<form>
+		<form id="pasteform">
 			<label for="pastebin">Content of vanishing pastebin:</label>
 			<textarea id="pastebin" class="fadeout" name="pastebin" readonly tabindex="-1"></textarea>
 		</form>
 	</main>
 
-	<script src="aes.js"></script>
-	<script src="phrase.js"></script>
-	<script src="functions.js"></script>
+	<script src="aes.min.js"></script>
+	<script src="phrase.min.js"></script>
+	<script src="functions.min.js"></script>
 </body>
 
 </html>
